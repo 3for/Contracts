@@ -5,9 +5,9 @@ To learn more about the POINT Token System, go to  [http://www.pointtoken.io](ht
 
 
 ## Installation
-If all you want to do is read the contract, there is no installation required; just go to  **contracts\PointToken.sol**. In the whitepaper is a complete walkthrough of the logic behind the contract.
+If all you want to do is read the contract, there is no installation required; just go to  **contracts\PointToken.sol**. 
 
-If you want to run the contract locally or run the tests, you need to install Truffle [Truffle](http://truffleframework.com/):
+If you want to run the contract locally or run the tests, you need to install  [Truffle](http://truffleframework.com/):
 
 ```bash
 npm install -g truffle
