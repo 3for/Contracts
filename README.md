@@ -29,3 +29,4 @@ To run the unit tests on the contract, run
 ```bash
 truffle test
 ```
+Make sure that testrpc is running before you run the tests.
