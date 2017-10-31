@@ -14,6 +14,7 @@ contract PointToken is MintableToken {
     mapping(uint => address) awards;
   
     event AwardGiven(address indexed _from, address indexed _to,  uint indexed _type, uint _amount, uint _date);
+    event AwardRevoked(address indexed _from, address indexed _to,  uint indexed _type, uint _date);
     event AwardAdded(address _from, uint _type);
     event AwarderAdded(address _who);
     event AwarderRemoved(address _who);
@@ -25,7 +26,6 @@ contract PointToken is MintableToken {
     //would be compromised
     function giveAward(address user, uint awardId, uint amount)  {
         
-        if (!isAwarder(msg.sender)) throw;
         //The awarder has to own the award in order to award it
         if (awards[awardId] != msg.sender) throw; 
         //the awarder has to have enough supply to give the points
@@ -33,6 +33,13 @@ contract PointToken is MintableToken {
         super.transfer(user, amount);
         AwardGiven(msg.sender, user, awardId, amount, now);
 
+    }
+    //we can't take back points that have been awarded, but we can revoke an erroneously awarded award
+    function revokeAward(address user, uint awardId) {
+        //The awarder has to own the award in order to revoke it
+        if (awards[awardId] != msg.sender) throw; 
+        AwardRevoked(msg.sender, user, awardId, now);
+        
     }
     function isAwarder(address _addr) constant returns (bool) {
         return awarders[_addr];
