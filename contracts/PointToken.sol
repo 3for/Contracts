@@ -13,7 +13,7 @@ contract PointToken is MintableToken {
     //list of award "types" mapped to the awarder
     mapping(uint => address) awards;
   
-    event Award(address indexed _from, address indexed _to,  uint indexed _type, uint _amount, uint _date);
+    event AwardGiven(address indexed _from, address indexed _to,  uint indexed _type, uint _amount, uint _date);
     event AwardAdded(address _from, uint _type);
     event AwarderAdded(address _who);
     event AwarderRemoved(address _who);
@@ -31,7 +31,7 @@ contract PointToken is MintableToken {
         //the awarder has to have enough supply to give the points
         if (super.balanceOf(msg.sender) < amount) throw;
         super.transfer(user, amount);
-        Award(msg.sender, user, awardId, amount, now);
+        AwardGiven(msg.sender, user, awardId, amount, now);
 
     }
     function isAwarder(address _addr) constant returns (bool) {
