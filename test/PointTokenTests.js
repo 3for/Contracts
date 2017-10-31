@@ -69,7 +69,7 @@ contract('PointToken', function (accounts) {
             return ctr.getAward.call(13)
         }).then(function (result) {
             assert.equal(result, accounts[0]);
-            ctr.awardAchievement(accounts[2],13,100, { from: accounts[0] });
+            ctr.giveAward(accounts[2],13,100, { from: accounts[0] });
         }).then(function () {
             return ctr.balanceOf.call(accounts[2])
         }).then(function (result) {
@@ -90,7 +90,7 @@ contract('PointToken', function (accounts) {
             return ctr.getAward.call(13)
         }).then(function (result) {
             assert.equal(result, accounts[0]);
-            ctr.awardAchievement(accounts[2],13,0, { from: accounts[0] });
+            ctr.giveAward(accounts[2],13,0, { from: accounts[0] });
         }).then(function () {
             return ctr.balanceOf.call(accounts[2])
         }).then(function (result) {
