@@ -24,21 +24,27 @@ contract PointToken is MintableToken {
     //only allow awarders to award achievements from their own token pool
     //that way if awards private key is compromised only the tokens they have
     //would be compromised
-    function giveAward(address user, uint awardId, uint amount)  {
+    function giveAward(address user, uint awardId, uint amount, uint date)  {
         
         //The awarder has to own the award in order to award it
         if (awards[awardId] != msg.sender) throw; 
         //the awarder has to have enough supply to give the points
         if (super.balanceOf(msg.sender) < amount) throw;
         super.transfer(user, amount);
-        AwardGiven(msg.sender, user, awardId, amount, now);
+        if (date == 0) {
+            date = now;
+        }
+        AwardGiven(msg.sender, user, awardId, amount, date);
 
     }
     //we can't take back points that have been awarded, but we can revoke an erroneously awarded award
-    function revokeAward(address user, uint awardId) {
+    function revokeAward(address user, uint awardId, uint date) {
         //The awarder has to own the award in order to revoke it
         if (awards[awardId] != msg.sender) throw; 
-        AwardRevoked(msg.sender, user, awardId, now);
+        if (date == 0) {
+            date = now;
+        }
+        AwardRevoked(msg.sender, user, awardId, date);
         
     }
     function isAwarder(address _addr) constant returns (bool) {
