@@ -27,9 +27,11 @@ contract PointToken is MintableToken {
     function giveAward(address user, uint awardId, uint amount, uint date)  {
         
         //The awarder has to own the award in order to award it
-        if (awards[awardId] != msg.sender) throw; 
+        if (awards[awardId] != msg.sender) 
+            throw; 
         //the awarder has to have enough supply to give the points
-        if (super.balanceOf(msg.sender) < amount) throw;
+        if (super.balanceOf(msg.sender) < amount) 
+            throw;
         super.transfer(user, amount);
         if (date == 0) {
             date = now;
@@ -40,7 +42,8 @@ contract PointToken is MintableToken {
     //we can't take back points that have been awarded, but we can revoke an erroneously awarded award
     function revokeAward(address user, uint awardId, uint date) {
         //The awarder has to own the award in order to revoke it
-        if (awards[awardId] != msg.sender) throw; 
+        if (awards[awardId] != msg.sender) 
+            throw; 
         if (date == 0) {
             date = now;
         }
@@ -63,7 +66,8 @@ contract PointToken is MintableToken {
     }
         
     function addAward(uint index) returns (bool) {
-        if (!isAwarder(msg.sender)) throw;
+        if (!isAwarder(msg.sender)) 
+            throw;
                             
         if (awards[index] == 0x0) {
             awards[index] = msg.sender;    
@@ -74,7 +78,7 @@ contract PointToken is MintableToken {
         
     }
 
-    function getAward(uint index) constant returns (address){
+    function getAward(uint index) constant returns (address) {
         return awards[index];
     }
 
